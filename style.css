@@ -1,0 +1,37 @@
+:root { --primary: #4361ee; --success: #2ecc71; --warning: #f1c40f; --danger: #e74c3c; --bg: #f0f2f5; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+body { background: #cbd5e0; display: flex; justify-content: center; min-height: 100vh; }
+.app-wrapper { width: 100%; max-width: 480px; background: var(--bg); display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+
+.main-header { background: var(--primary); color: white; padding: 30px; border-radius: 0 0 25px 25px; text-align: center; }
+.menu-grid { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.menu-card { border: none; border-radius: 20px; padding: 25px; color: white; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
+.daily { background: linear-gradient(45deg, #4361ee, #3f37c9); grid-column: span 2; }
+.warehouse { background: #7209b7; } .stock { background: #2ecc71; } .settings { background: #555; grid-column: span 2; }
+
+.nav-bar { padding: 15px; display: flex; align-items: center; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.icon-btn { border: none; background: #eee; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; margin-left: 10px; }
+
+.card, .step-card, .result-card { background: white; margin: 15px; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem; }
+.btn-primary { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; }
+
+/* شكل رصيد المخزن المطور */
+.stock-grid { padding: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stock-item-card { background: white; padding: 15px; border-radius: 15px; text-align: center; border-bottom: 4px solid var(--success); box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+.stock-item-card.low { border-bottom-color: var(--danger); }
+.stock-item-card h4 { font-size: 0.9rem; color: #666; margin-bottom: 5px; }
+.stock-item-card .qty { font-size: 1.2rem; font-weight: bold; color: var(--primary); }
+
+.options-grid, .options-grid-3 { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 15px; }
+.opt-btn { padding: 18px; border: 2px solid #eee; border-radius: 12px; background: white; cursor: pointer; font-size: 1.1rem; }
+.opt-btn:hover { border-color: var(--primary); background: #f0f7ff; }
+
+.manage-row { background: #f9f9f9; padding: 15px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #eee; }
+.manage-row-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+.manage-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.manage-controls div { font-size: 0.8rem; color: #777; }
+
+.progress-container { flex-grow: 1; height: 8px; background: #eee; border-radius: 10px; overflow: hidden; margin-right: 10px; }
+.progress-bar { height: 100%; background: var(--success); width: 0; transition: 0.4s; }
+.res-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
