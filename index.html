@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة المخزن الذكي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-wrapper">
+        <!-- الشاشة الرئيسية -->
+        <main class="app-content active-screen" id="mainMenu">
+            <header class="main-header">
+                <h1>لوحة التحكم</h1>
+                <p id="todayDate"></p>
+            </header>
+            <div class="menu-grid">
+                <button class="menu-card daily" onclick="startFlow('dailyFlow')">📋 صرف يومي</button>
+                <button class="menu-card warehouse" onclick="startFlow('manualFlow')">➕ توريد مستودع</button>
+                <button class="menu-card stock" onclick="showStock()">📊 رصيد المخزن</button>
+                <button class="menu-card settings" onclick="showManageStock()">⚙️ الأصناف والفئات</button>
+            </div>
+        </main>
+
+        <!-- شاشة إدارة الأصناف والفئات -->
+        <main class="app-content" id="manageView" style="display: none;">
+            <div class="nav-bar">
+                <button class="icon-btn" onclick="backToMenu()">⬅</button>
+                <h2>إدارة البيانات</h2>
+            </div>
+            
+            <div class="card">
+                <h3>إضافة صنف جديد للمنظومة</h3>
+                <input type="text" id="newName" placeholder="اسم الصنف الجديد">
+                <input type="number" id="newQty" placeholder="الرصيد الحالي (كجم)">
+                <input type="number" id="newRate" placeholder="فئة الصرف (جم / فرد)">
+                <button class="btn-primary" onclick="addNewItemFull()">إضافة صنف جديد ✅</button>
+            </div>
+
+            <div class="card">
+                <h3>تعديل الفئات والأرصدة</h3>
+                <div id="manageItemsContainer"></div>
+            </div>
+        </main>
+
+        <!-- شاشة رصيد المخزن المطور -->
+        <main class="app-content" id="stockView" style="display: none;">
+            <div class="nav-bar">
+                <button class="icon-btn" onclick="backToMenu()">⬅</button>
+                <h2>حالة المخزون الحالي</h2>
+            </div>
+            <div class="stock-grid" id="stockListContainer"></div>
+        </main>
+
+        <!-- شاشة التوريد -->
+        <main class="app-content" id="manualFlow" style="display: none;">
+            <div class="nav-bar">
+                <button class="icon-btn" onclick="backToMenu()">⬅</button>
+                <h2>توريد كميات (كجم)</h2>
+            </div>
+            <div class="input-card">
+                <input type="text" id="manualItemName" placeholder="اسم الصنف">
+                <input type="number" id="manualItemQty" placeholder="الكمية بالكيلو">
+                <button class="btn-add-list" onclick="addManualItemToList()">إضافة للقائمة +</button>
+                <div id="manualPreview" class="preview-area"></div>
+                <button class="btn-primary" id="saveManualBtn" style="display:none;" onclick="saveManualToStock()">تأكيد الحفظ</button>
+            </div>
+        </main>
+
+        <!-- شاشة الصرف اليومي -->
+        <main class="app-content" id="dailyFlow" style="display: none;">
+            <div class="nav-bar">
+                <button class="icon-btn" id="dailyBackBtn" onclick="dailyBack()">⬅</button>
+                <div class="progress-container"><div class="progress-bar" id="progress"></div></div>
+            </div>
+            <section class="step active" id="step1">
+                <div class="step-card"><h2>قوة الوحدة</h2><input type="number" id="unitStrength" placeholder="عدد الأفراد"><button class="btn-primary" onclick="nextStep(2)">التالي</button></div>
+            </section>
+            <section class="step" id="step2">
+                <div class="step-card"><h2>النشويات</h2><div class="options-grid"><button class="opt-btn" onclick="selectOption('main', 'أرز', 3)">🍚 أرز</button><button class="opt-btn" onclick="selectOption('main', 'مكرونة', 3)">🍝 مكرونة</button></div></div>
+            </section>
+            <section class="step" id="step3">
+                <div class="step-card"><h2>البقوليات</h2><div class="options-grid"><button class="opt-btn" onclick="selectOption('legumes', 'عدس', 4)">🥣 عدس</button><button class="opt-btn" onclick="selectOption('legumes', 'فول', 4)">🥘 فول</button></div></div>
+            </section>
+            <section class="step" id="step4">
+                <div class="step-card"><h2>وجبة الفطور</h2><div class="options-grid-3"><button class="opt-btn" onclick="selectOption('breakfast', 'مربى', 5)">🍓 مربى</button><button class="opt-btn" onclick="selectOption('breakfast', 'جبنة', 5)">🧀 جبنة</button><button class="opt-btn" onclick="selectOption('breakfast', 'حلاوة', 5)">🍯 حلاوة</button></div></div>
+            </section>
+            <section class="step" id="step5">
+                <div class="step-card"><h2>وجبة العشاء</h2><div class="options-grid-3"><button class="opt-btn" onclick="calculateDaily('مربى')">🍓 مربى</button><button class="opt-btn" onclick="calculateDaily('جبنة')">🧀 جبنة</button><button class="opt-btn" onclick="calculateDaily('حلاوة')">🍯 حلاوة</button></div></div>
+            </section>
+            <section class="step" id="stepFinal"><div class="result-card"><h2>تقرير الصرف</h2><div id="resultsList" class="final-list"></div><button class="btn-primary" onclick="backToMenu()">تم</button></div></section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
